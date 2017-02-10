@@ -1,9 +1,7 @@
 var items = document.querySelectorAll('.parallax');
 
 for (var i = 0; i < items.length; i++ ) {
-	var item = items[i];
-
-	parallax(item);
+	parallax(items[i]);
 }
 
 function parallax(item) {
@@ -17,25 +15,13 @@ function parallax(item) {
 		var winH      = window.innerHeight,
 			winBottom = pageYOffset + winH,
 			offset    = winBottom - top,
-			diff      = offset*currentFriction;
+			diff      = offset * currentFriction;
 
-		window.requestAnimationFrame(function () {
-			
-			if(top < winBottom && bottom >= pageYOffset) {
-				parallaxRun(item, diff);
-			}
-
-			if(bottom < pageYOffset || top > winBottom) {
-				parallaxStop(item);	
-			}
-		});
+		window.requestAnimationFrame(function () {            
+            if(top < winBottom && bottom >= pageYOffset) {
+                return item.style.transform = "translate3d(0, " + diff + "%, 0)";
+            }            
+            return item.style.transform = "";                
+        });
 	});
-}
-
-function parallaxRun(item, diff) {
-	item.style.transform = "translate3d(0, " + diff + "%, 0)";
-}
-
-function parallaxStop(item) {
-	item.style.transform = "";	
 }
